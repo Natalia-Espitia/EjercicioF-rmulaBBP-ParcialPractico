@@ -13,13 +13,19 @@ import java.util.Arrays;
  */
 public class Main {
 
-    public static void main(String a[]) {
-        System.out.println(bytesToHex(PiDigits.getDigits(0, 10)));
-        System.out.println(bytesToHex(PiDigits.getDigits(1, 100)));
-        System.out.println(bytesToHex(PiDigits.getDigits(1, 1000000)));
+    public static void main(String[] args) {
+        PiDigits piDigits = new PiDigits();
+
+        PiDigitThread thread1 = new PiDigitThread(piDigits, 0, 10, 5);
+        PiDigitThread thread2 = new PiDigitThread(piDigits, 10, 100, 5);
+        PiDigitThread thread3 = new PiDigitThread(piDigits, 10, 1000, 5);
+
+        thread1.start();
+        thread2.start();
+        thread3.start();
     }
 
-    private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
+    final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 
     public static String bytesToHex(byte[] bytes) {
         char[] hexChars = new char[bytes.length * 2];
